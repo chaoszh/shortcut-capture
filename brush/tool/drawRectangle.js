@@ -14,6 +14,7 @@ const $lineWidth = document.getElementById('lineWidth')
 function mouseMove(e) {
     const { startX, startY } = this.startPosition;
     this.clearFrontContext();
+    this.frontContext.fillRect(startX, startY, e.offsetX - startX, e.offsetY - startY)
     this.frontContext.beginPath();
     this.frontContext.moveTo(startX,startY);
     // 长
@@ -28,6 +29,7 @@ function mouseMove(e) {
 function mouseUp(e) {
     this.clearFrontContext();
     const {startY, startX} = this.startPosition;
+    this.drawContext.fillRect(startX, startY, e.offsetX - startX, e.offsetY - startY)
     this.drawContext.strokeRect(startX, startY, e.offsetX - startX, e.offsetY - startY);
 }
 
@@ -35,16 +37,16 @@ function mouseUp(e) {
 function init(priorToolName, toolName) {
     this.setCursorSize($lineWidth.value, false);
     document.body.onmousewheel = function(event) {
-        const value = parseInt($lineWidth.value) + (event.deltaY < 0 ? 2 : -2);
-        $lineWidth.value = value <= 0 ? 2 : value;
+        const value = parseInt($lineWidth.value) + (event.deltaY < 0 ? 1 : -1);
+        $lineWidth.value = value <= 0 ? 1 : value;
         this.setCursorSize($lineWidth.value, false);
     }.bind(this)
     window.Mousetrap.bind('=', () => {
-        $lineWidth.value = parseInt($lineWidth.value) + 2;
+        $lineWidth.value = parseInt($lineWidth.value) + 1;
         this.setCursorSize($lineWidth.value, false);
     })
     window.Mousetrap.bind('-', () => {
-        $lineWidth.value =  parseInt($lineWidth.value) - 2;
+        $lineWidth.value =  parseInt($lineWidth.value) - 1;
         if ($lineWidth.value < 1) {
             $lineWidth.value = 1;
         }

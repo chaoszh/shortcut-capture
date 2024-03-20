@@ -337,9 +337,10 @@ class Palette {
     setCanvasStyle(context) {
         const lineWidth = document.getElementById('lineWidth').value
         const strokeStyle = document.getElementById('strokeStyle').value
-        console.log(lineWidth, strokeStyle)
+        const fillStyle = document.getElementById('fillStyle').value
         context.lineWidth = parseInt(lineWidth) + 0.5 * this.radio;
         context.strokeStyle = strokeStyle;
+        context.fillStyle = `${fillStyle}22`;
     }
     setCursorSize(size, autoHide = true) {
         this.$cursor.style.display = 'block';
